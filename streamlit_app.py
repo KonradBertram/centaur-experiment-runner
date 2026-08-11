@@ -862,7 +862,7 @@ def render_results(run_data, config):
 
 
 st.caption(
-    "Updated by KB, 11.08.2026, 14.00 CET"
+    "Updated by KB, 11.08.2026, 15.00 CET"
 )
 st.title("Centaur Experiment Runner")
 st.write(
