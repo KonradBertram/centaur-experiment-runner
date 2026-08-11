@@ -1,0 +1,10 @@
+[theme]
+base = "dark"
+
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap, sans-serif"
+
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#171B23"
+textColor = "#F3F4F6"
+primaryColor = "#7C6FF7"

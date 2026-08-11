@@ -11,7 +11,7 @@ st.set_page_config(
 st.title("🧠 Centaur Experiment Runner")
 
 st.write(
-    "Run behavioural experiments using Centaur and examine simulated response patterns."
+    "Run behavioural experiments using Llama-3.1-Centaur-70B by Binz et al. (2025) and examine simulated response patterns."
 )
 
 st.divider()
