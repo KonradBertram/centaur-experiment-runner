@@ -861,7 +861,7 @@ def render_results(run_data, config):
     )
 
 
-st.image("logo.png", width=260)
+st.image("logo.png", width=130)
 
 st.caption("Updated by KB, 11.08.2026, 14.00 CET")
 st.title("Centaur Experiment Runner")
