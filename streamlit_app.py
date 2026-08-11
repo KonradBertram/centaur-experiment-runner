@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from collections import Counter
 
 st.set_page_config(
     page_title="Centaur Experiment Runner",
@@ -10,7 +11,7 @@ st.set_page_config(
 st.title("🧠 Centaur Experiment Runner")
 
 st.write(
-    "Run behavioural experiments using Centaur and compare simulated responses across conditions."
+    "Run behavioural experiments using Centaur and examine simulated response patterns."
 )
 
 st.divider()
@@ -26,45 +27,34 @@ instructions = st.text_area(
     height=150
 )
 
-col1, col2 = st.columns(2)
-
-with col1:
-    condition_a = st.text_area(
-        "Condition A",
-        placeholder="Enter the experimental condition.",
-        height=150
-    )
-
-with col2:
-    condition_b = st.text_area(
-        "Condition B",
-        placeholder="We'll use this later when comparing treatments.",
-        height=150
-    )
+condition = st.text_area(
+    "Experimental condition",
+    placeholder="Enter the choice or treatment shown to the participant.",
+    height=150
+)
 
 responses = st.text_input(
     "Possible response codes",
-    placeholder="e.g. A, B"
+    value="A, B",
+    help="For now, use short response codes such as A and B."
 )
 
 simulations = st.selectbox(
-    "Number of Centaur simulations per condition",
-    [1, 10, 20, 50, 100, 500],
-    index=0
+    "Number of Centaur simulations",
+    [1, 10],
+    index=1
 )
 
 if st.button("Run experiment", type="primary"):
 
-    if not instructions or not condition_a or not responses:
-        st.warning(
-            "Please fill in the instructions, Condition A, and possible responses."
-        )
+    if not instructions or not condition or not responses:
+        st.warning("Please fill in all fields.")
 
     else:
 
         prompt = f"""{instructions}
 
-{condition_a}
+{condition}
 
 Possible responses: {responses}
 
@@ -75,14 +65,23 @@ You choose <<"""
             "Content-Type": "application/json"
         }
 
-        data = {
-            "model": "marcelbinz/Llama-3.1-Centaur-70B",
-            "prompt": prompt,
-            "max_tokens": 1,
-            "temperature": 1.0
-        }
+        answers = []
 
-        with st.spinner("Centaur is making a choice..."):
+        progress = st.progress(0)
+        status = st.empty()
+
+        for i in range(simulations):
+
+            status.write(
+                f"Running Centaur simulation {i + 1} of {simulations}..."
+            )
+
+            data = {
+                "model": "marcelbinz/Llama-3.1-Centaur-70B",
+                "prompt": prompt,
+                "max_tokens": 1,
+                "temperature": 1.0
+            }
 
             try:
 
@@ -99,17 +98,36 @@ You choose <<"""
 
                 answer = result["choices"][0]["text"].strip()
 
-                st.success("Centaur responded successfully!")
-
-                st.subheader("Centaur chose")
-
-                st.metric(
-                    label="Choice",
-                    value=answer
-                )
+                answers.append(answer)
 
             except Exception as e:
 
-                st.error("Something went wrong.")
+                answers.append("ERROR")
 
-                st.code(str(e))
+            progress.progress((i + 1) / simulations)
+
+        status.empty()
+
+        st.success("Experiment complete!")
+
+        counts = Counter(answers)
+
+        st.subheader("Results")
+
+        for answer, count in counts.items():
+
+            percentage = (count / simulations) * 100
+
+            st.metric(
+                label=f"Choice {answer}",
+                value=f"{percentage:.0f}%",
+                delta=f"{count} of {simulations} simulations"
+            )
+
+        st.subheader("Individual Centaur simulations")
+
+        st.write(answers)
+
+        st.caption(
+            "These are Centaur simulations, not observations from real human participants."
+        )
