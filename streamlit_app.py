@@ -894,14 +894,15 @@ st.divider()
 
 experiment_name = st.text_input(
     "Experiment name",
-    placeholder="e.g. Loss framing experiment",
+    placeholder="e.g. Hypertemporal discounting experiment",
 )
 
 instructions = st.text_area(
-    "Shared experiment instructions",
+    "Survey question or experiment instructions including answer options",
     placeholder=(
-        "Enter the instructions for the experiment that "
-        "all simulated participants will receive"
+        "Which of the options would you prefer=" \
+        "A: 10 CHF now" \
+        "B: 20 CHF with 50% probability"
     ),
     height=130,
 )
@@ -1092,7 +1093,7 @@ for i in range(number_conditions):
             f"Condition {chr(65 + i)} content",
             placeholder=(
                 "Enter exactly what this condition "
-                "shows or tells the participant."
+                "shows or tells the participant, e.g. 'Most people tend to pick option A'."
             ),
             height=120,
             key=f"condition_text_{i}",
