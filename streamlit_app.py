@@ -22,7 +22,7 @@ DEFAULT_TOP_K = 50
 MAX_NEW_TOKENS = 1
 
 MAX_HTTP_RETRIES = 4
-MAX_APP_WORKERS = 16
+MAX_APP_WORKERS = 10
 MAX_SIMULATIONS = 1000
 MAX_SLOT_ATTEMPT_MULTIPLIER = 3
 
@@ -31,7 +31,14 @@ st.set_page_config(
     page_title="Centaur Experiment Runner",
     layout="wide",
 )
-
+st.html("""
+<style>
+button[data-testid="stBaseButton-primary"],
+button[data-testid="stBaseButton-primary"] * {
+    color: #000000 !important;
+}
+</style>
+""")
 
 def api_headers(api_key):
     return {
