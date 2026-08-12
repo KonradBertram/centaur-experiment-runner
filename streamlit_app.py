@@ -899,13 +899,10 @@ experiment_name = st.text_input(
 
 instructions = st.text_area(
     "Survey question or experiment instructions including answer options",
-    placeholder=(
-        "e.g. Which of the options would you prefer?" \
-        "\n"
-        "A: 10 CHF now" \
-        
-        "B: 20 CHF with 50% probability"
-    ),
+    placeholder="""e.g. Which of the options would you prefer?
+
+A: 10 CHF now
+B: 20 CHF with 50% probability""",
     height=130,
 )
 
