@@ -900,7 +900,9 @@ experiment_name = st.text_input(
 instructions = st.text_area(
     "Survey question or experiment instructions including answer options",
     placeholder=(
-        "Which of the options would you prefer=" \
+        "e.g. Which of the options would you prefer=" \
+        "\n\n"
+        "\n\n"
         "A: 10 CHF now" \
         "B: 20 CHF with 50% probability"
     ),
@@ -1093,7 +1095,7 @@ for i in range(number_conditions):
             f"Condition {chr(65 + i)} content",
             placeholder=(
                 "Enter exactly what this condition "
-                "shows or tells the participant, e.g. 'Most people tend to pick option A'."
+                "shows or tells the participant, e.g. 'Most people tend to pick option X'."
             ),
             height=120,
             key=f"condition_text_{i}",
