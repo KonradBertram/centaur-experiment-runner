@@ -12,7 +12,7 @@ import requests
 import streamlit as st
 
 
-MODEL_ID = "empero-ai/Qwythos-9B-Claude-Mythos-5-1M"
+MODEL_ID = "marcelbinz/Llama-3.1-Centaur-70B"
 API_BASE = "https://api.featherless.ai/v1"
 
 DEFAULT_TEMPERATURE = 1.0
